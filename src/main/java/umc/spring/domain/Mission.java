@@ -41,8 +41,8 @@ public class Mission extends BaseEntity {
     private Integer minAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shop_id")
-    private Shop shop;
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<UserMission> userMissionList = new ArrayList<>();

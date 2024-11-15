@@ -3,7 +3,7 @@ package umc.spring.domain.mapping;
 import jakarta.persistence.*;
 import lombok.*;
 import umc.spring.domain.Mission;
-import umc.spring.domain.Shop;
+import umc.spring.domain.Store;
 import umc.spring.domain.User;
 import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.MissionStatus;
