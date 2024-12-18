@@ -8,12 +8,15 @@ import spring.umc7th.domain.Mission;
 import spring.umc7th.domain.Region;
 import spring.umc7th.domain.Review;
 import spring.umc7th.domain.Store;
+import spring.umc7th.domain.mapping.MemberMission;
+import spring.umc7th.repository.MemberMissionRepository;
 import spring.umc7th.repository.MemberRepository;
 import spring.umc7th.repository.MissionRepository;
 import spring.umc7th.repository.RegionRepository;
 import spring.umc7th.repository.ReviewRepository;
 import spring.umc7th.repository.storeRepository.StoreRepository;
 import spring.umc7th.web.dto.StoreRequestDTO;
+import spring.umc7th.web.dto.StoreRequestDTO.ChallengeMissionDTO;
 import spring.umc7th.web.dto.StoreRequestDTO.MissionDTO;
 import spring.umc7th.web.dto.StoreRequestDTO.ReviewDTO;
 
@@ -26,6 +29,7 @@ public class StoreCommandServiceImpl implements StoreCommandService {
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
     private final MissionRepository missionRepository;
+    private final MemberMissionRepository memberMissionRepository;
 
     @Override
     @Transactional
@@ -52,5 +56,15 @@ public class StoreCommandServiceImpl implements StoreCommandService {
         Mission mission = StoreConverter.toMission(request);
         mission.setStore(storeRepository.findById(storeId).get());
         return missionRepository.save(mission);
+    }
+
+    @Override
+    public MemberMission createMemberMission(ChallengeMissionDTO request) {
+        MemberMission memberMission = StoreConverter.toMemberMission(request);
+
+        memberMission.setMember(memberRepository.findById(request.getMemberId()).get());
+        memberMission.setMission(missionRepository.findById(request.getMissionId()).get());
+
+        return memberMissionRepository.save(memberMission);
     }
 }
