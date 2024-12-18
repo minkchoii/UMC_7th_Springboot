@@ -14,9 +14,11 @@ import spring.umc7th.converter.StoreConverter;
 import spring.umc7th.domain.Mission;
 import spring.umc7th.domain.Review;
 import spring.umc7th.domain.Store;
+import spring.umc7th.domain.mapping.MemberMission;
 import spring.umc7th.service.storeService.StoreCommandService;
 import spring.umc7th.validation.annotation.ExistMember;
 import spring.umc7th.validation.annotation.ExistStore;
+import spring.umc7th.validation.annotation.MissionInChallenging;
 import spring.umc7th.web.dto.StoreRequestDTO;
 import spring.umc7th.web.dto.StoreResponseDTO;
 
@@ -50,5 +52,13 @@ public class StoreRestController {
             @ExistStore @PathVariable(name = "storeId") Long storeId) {
         Mission mission = storeCommandService.createMission(storeId, request);
         return ApiResponse.onSuccess(StoreConverter.toCreateMissionResultDTO(mission));
+    }
+
+    @PostMapping("/challenge")
+    public ApiResponse<StoreResponseDTO.CreateMemberMissionResultDTO> createChallengingMemberMission(
+            @RequestBody @Valid @MissionInChallenging(memberIdField = "memberId", missionIdField = "missionId")
+            StoreRequestDTO.ChallengeMissionDTO request) {
+        MemberMission memberMission = storeCommandService.createMemberMission(request);
+        return ApiResponse.onSuccess(StoreConverter.toCreateMemberMissionDTO(memberMission));
     }
 }
