@@ -4,14 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.umc7th.converter.StoreConverter;
+import spring.umc7th.domain.Mission;
 import spring.umc7th.domain.Region;
 import spring.umc7th.domain.Review;
 import spring.umc7th.domain.Store;
 import spring.umc7th.repository.MemberRepository;
+import spring.umc7th.repository.MissionRepository;
 import spring.umc7th.repository.RegionRepository;
 import spring.umc7th.repository.ReviewRepository;
 import spring.umc7th.repository.storeRepository.StoreRepository;
 import spring.umc7th.web.dto.StoreRequestDTO;
+import spring.umc7th.web.dto.StoreRequestDTO.MissionDTO;
 import spring.umc7th.web.dto.StoreRequestDTO.ReviewDTO;
 
 @Service
@@ -22,6 +25,7 @@ public class StoreCommandServiceImpl implements StoreCommandService {
     private final RegionRepository regionRepository;
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
+    private final MissionRepository missionRepository;
 
     @Override
     @Transactional
@@ -41,5 +45,12 @@ public class StoreCommandServiceImpl implements StoreCommandService {
         review.setStore(storeRepository.findById(storeId).get());
 
         return reviewRepository.save(review);
+    }
+
+    @Override
+    public Mission createMission(Long storeId, MissionDTO request) {
+        Mission mission = StoreConverter.toMission(request);
+        mission.setStore(storeRepository.findById(storeId).get());
+        return missionRepository.save(mission);
     }
 }
