@@ -24,6 +24,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import spring.umc7th.domain.common.BaseEntity;
 import spring.umc7th.domain.enums.Gender;
 import spring.umc7th.domain.enums.MemberStatus;
+import spring.umc7th.domain.enums.Role;
 import spring.umc7th.domain.enums.SocialType;
 import spring.umc7th.domain.mapping.MemberAgree;
 import spring.umc7th.domain.mapping.MemberMission;
@@ -69,6 +70,16 @@ public class Member extends BaseEntity {
 
     //@Column(nullable = false, length = 50)
     private String email;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false)
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 
     @ColumnDefault("0")
     private Integer point;

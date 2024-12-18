@@ -89,4 +89,4 @@ public class MemberRestController {
         Page<MemberMission> missionList = memberQueryService.getMemberMissionListByMemberId(memberId, validatedPage);
         return ApiResponse.onSuccess(MemberConverter.toMissionPreViewListDTO(missionList));
     }
-}g
+}
