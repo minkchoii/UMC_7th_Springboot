@@ -1,6 +1,7 @@
 package spring.umc7th.converter;
 
 import java.time.LocalDateTime;
+import spring.umc7th.domain.Mission;
 import spring.umc7th.domain.Region;
 import spring.umc7th.domain.Review;
 import spring.umc7th.domain.Store;
@@ -35,6 +36,21 @@ public class StoreConverter {
     public static StoreResponseDTO.CreateReviewResultDTO toCreateReviewResultDTO(Review review){
         return StoreResponseDTO.CreateReviewResultDTO.builder()
                 .reviewId(review.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static Mission toMission(StoreRequestDTO.MissionDTO request) {
+        return Mission.builder()
+                .reward(request.getReward())
+                .deadline(request.getDeadLine())
+                .missionSpec(request.getMissionSpec())
+                .build();
+    }
+
+    public static StoreResponseDTO.CreateMissionResultDTO toCreateMissionResultDTO(Mission mission) {
+        return StoreResponseDTO.CreateMissionResultDTO.builder()
+                .missionId(mission.getId())
                 .createdAt(LocalDateTime.now())
                 .build();
     }
