@@ -20,4 +20,6 @@ public interface StoreQueryService {
     Optional<MemberMission> findMemberMission(Member member, Mission mission);
 
     Page<Review> getReviewList(Long storeId, Integer page);
+
+    Page<Mission> getMissionList(Long storeId, Integer page);
 }
