@@ -75,7 +75,7 @@ public class StoreConverter {
                 .build();
     }
 
-    public static StoreResponseDTO.ReviewPreViewDTO reviewPreViewDTO(Review review){
+    public static StoreResponseDTO.ReviewPreViewDTO toReviewPreViewDTO(Review review){
         return StoreResponseDTO.ReviewPreViewDTO.builder()
                 .ownerNickname(review.getMember().getName())
                 .score(review.getScore())
@@ -84,9 +84,9 @@ public class StoreConverter {
                 .build();
     }
 
-    public static StoreResponseDTO.ReviewPreViewListDTO reviewPreViewListDTO(Page<Review> reviewList){
+    public static StoreResponseDTO.ReviewPreViewListDTO toReviewPreViewListDTO(Page<Review> reviewList){
         List<ReviewPreViewDTO> reviewPreViewDTOList = reviewList.stream()
-                .map(StoreConverter::reviewPreViewDTO).collect(Collectors.toList());
+                .map(StoreConverter::toReviewPreViewDTO).collect(Collectors.toList());
 
         return StoreResponseDTO.ReviewPreViewListDTO.builder()
                 .isLast(reviewList.isLast())
