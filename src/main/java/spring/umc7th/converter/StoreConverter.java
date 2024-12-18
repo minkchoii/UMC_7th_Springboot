@@ -5,6 +5,8 @@ import spring.umc7th.domain.Mission;
 import spring.umc7th.domain.Region;
 import spring.umc7th.domain.Review;
 import spring.umc7th.domain.Store;
+import spring.umc7th.domain.enums.MissionStatus;
+import spring.umc7th.domain.mapping.MemberMission;
 import spring.umc7th.web.dto.StoreRequestDTO;
 import spring.umc7th.web.dto.StoreResponseDTO;
 
@@ -51,6 +53,20 @@ public class StoreConverter {
     public static StoreResponseDTO.CreateMissionResultDTO toCreateMissionResultDTO(Mission mission) {
         return StoreResponseDTO.CreateMissionResultDTO.builder()
                 .missionId(mission.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static MemberMission toMemberMission(StoreRequestDTO.ChallengeMissionDTO request) {
+        return MemberMission.builder()
+                .status(MissionStatus.CHALLENGING)
+                .build();
+    }
+
+    public static StoreResponseDTO.CreateMemberMissionResultDTO toCreateMemberMissionDTO(
+            MemberMission memberMission) {
+        return StoreResponseDTO.CreateMemberMissionResultDTO.builder()
+                .memberMissionId(memberMission.getId())
                 .createdAt(LocalDateTime.now())
                 .build();
     }
