@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### querydsl Q files ###
-  src/main/generated/
+src/main/generated/
